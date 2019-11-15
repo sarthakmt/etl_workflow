@@ -35,11 +35,9 @@ logging.getLogger('').addHandler(console)
 logging.info('*******************Extracting********************')
 
 # raw file
-# file_input = 'D:\BDBA\Data_Management-2\Submission\Data\walmart_raw.csv'
 file_input = (base_path / "../data/source/walmart_raw.csv").resolve()
 
 # Output File : Pre-Processed  CSV file after input file is cleaned and prepared
-# file_pre_processed = 'D:\BDBA\Data_Management-2\Submission\Data\walmart_cleaned.csv'
 file_pre_processed = (
     base_path / "../data/staging/walmart_cleaned.csv").resolve()
 
@@ -48,18 +46,13 @@ file_pre_processed = (
 #               walmart_fact.csv file will hold the factual information of
 #               Sales by Walmart.
 
-# fact_output = 'D:\BDBA\Data_Management-2\Submission\Data\walmart_fact.csv'
-# item_dim_output = 'D:\BDBA\Data_Management-2\Submission\Data\item_data.csv'
-# outlet_dim_output = 'D:\BDBA\Data_Management-2\Submission\Data\outlet_data.csv'
-
 fact_output = (base_path / "../data/destination/walmart_fact.csv")
 item_dim_output = (base_path / "../data/destination/item_data.csv")
 outlet_dim_output = (base_path / "../data/destination/outlet_data.csv")
 test_output = (base_path / "../data/algo_files/test.csv")
 
 
-df_raw = pd.read_csv(
-    r"D:\BDBA\Data_Management-2\Submission\Data\walmart_raw.csv")
+df_raw = pd.read_csv(file_input)
 print(df_raw.head())
 
 # create connection
