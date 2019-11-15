@@ -8,6 +8,8 @@ def preprocess_data(df_raw):
     logger1.info("***********************Preprocessing started**************************")
     df_preprocessed = df_raw.copy()
     print(df_preprocessed.apply(lambda x: sum(x.isnull())))
+    print("\n")
+    print("\n")
 
     """
     Item_Weight:
@@ -26,7 +28,7 @@ def preprocess_data(df_raw):
     df_preprocessed['Item_Weight'] = df_preprocessed['Item_Weight'].fillna(df_preprocessed['Item_Identifier'].map(mapping))
     # df_raw["Item_Weight"].value_counts(dropna=False)
 
-    df_raw[df_raw["Item_Identifier"]=="FDN15"]
+    # df_raw[df_raw["Item_Identifier"]=="FDN15"]
 
     """
     Item_Fat_Content: 
@@ -35,9 +37,11 @@ def preprocess_data(df_raw):
     low fat is converted to Low Fat (title case )
     """
     print(df_preprocessed["Item_Fat_Content"].value_counts(dropna=False))
+    print("\n")
     df_preprocessed["Item_Fat_Content"].replace({"LF": "Low Fat","reg":"Regular","low fat":"Low Fat"},inplace=True)
     print(df_preprocessed["Item_Fat_Content"].value_counts(dropna=False))
-
+    print("\n")
+    
     """
     Item_Visibility:
     The values 0 are filled by mode/mean
@@ -50,8 +54,10 @@ def preprocess_data(df_raw):
     zero_bool = (df_preprocessed['Item_Visibility'] == 0)
 
     print('Number of 0 values initially: %d'%sum(zero_bool))
+    print("\n")
     df_preprocessed.loc[zero_bool,'Item_Visibility'] = df_preprocessed.loc[zero_bool,'Item_Identifier'].apply(lambda x: visibility_avg.loc[x])
     print('Number of 0 values after modification: %d'%sum(df_preprocessed['Item_Visibility'] == 0))
+    print("\n")
 
     """
     Outlet_Establishment_Year:
@@ -85,8 +91,12 @@ def preprocess_data(df_raw):
     cents
     """
     print(df_preprocessed["Item_Outlet_Sales"].head())
+    print("\n")
     df_preprocessed["Item_Outlet_Sales"] = df_preprocessed["Item_Outlet_Sales"].round(2)
     print(df_preprocessed["Item_Outlet_Sales"].head())
+    print("\n")
 
+    print(df_preprocessed.dropna().apply(lambda x: sum(x.isnull())))
+    print("\n")
     logger1.info("***********************Preprocessing completed**************************")
     return df_preprocessed

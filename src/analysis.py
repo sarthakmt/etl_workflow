@@ -12,7 +12,7 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 logger3 = logging.getLogger(__name__)
 
 def feature_engineering(df_preprocessed):
-    logger3.info("Feature_engineering started")
+    logger3.info("************************Feature_engineering started*********************\n")
     # Generating new features from the existing ones
 
     """
@@ -54,12 +54,13 @@ def feature_engineering(df_preprocessed):
 
     data = pd.get_dummies(data, columns=['Item_Fat_Content','Outlet_Location_Type','Outlet_Size','Outlet_Type',
                               'Item_Type_Combined','Outlet'])
-
-    logger3.info("Feature_engineering completed")
+    logger3.info("feature engineered data\n")
+    print(data.head())
+    logger3.info("*******************Feature_engineering completed**********************\n")
     return data
 
 def model(alg, dtrain, dtest, predictors, target, id_cols, filename):
-    logger3.info("Modelling & evaluation started")
+    logger3.info("****************Modelling & evaluation started**************************\n")
     
     # NaN  removal check
     dtrain.dropna(inplace=True)
@@ -88,5 +89,5 @@ def model(alg, dtrain, dtest, predictors, target, id_cols, filename):
     submission = pd.DataFrame({ x: dtest[x] for x in id_cols})
     submission.to_csv(filename, index=False)
 
-    logger3.info("Modelling & evaluation completed")
+    logger3.info("******************Modelling & evaluation completed*************************\n")
 

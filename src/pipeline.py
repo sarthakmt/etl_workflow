@@ -55,6 +55,7 @@ file_pre_processed = (
 fact_output = (base_path / "../data/destination/walmart_fact.csv")
 item_dim_output = (base_path / "../data/destination/item_data.csv")
 outlet_dim_output = (base_path / "../data/destination/outlet_data.csv")
+test_output = (base_path / "../data/algo_files/test.csv")
 
 
 df_raw = pd.read_csv(
@@ -96,6 +97,7 @@ if __name__ == "__main__":
     train,test = train_test_split(df_prepared, test_size=0.2, random_state=10)
 
     # We have to predict Item_Outlet_Sales
+    test.to_csv(test_output,header=True,index=False)
     test.drop(['Item_Outlet_Sales',],axis=1,inplace=True)
 
 
